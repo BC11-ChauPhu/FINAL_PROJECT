@@ -4,41 +4,44 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 const Header = () => {
   return (
-    <nav className="h-16 w-screen m-0 bg-slate-700 text-white">
+    <nav className=" w-screen m-0 py-4 text-black border-b border-b-gray-300">
       <div className="h-full max-w-7xl m-auto flex justify-between items-center">
-        <div className="flex items-center">
+        <div className="flex justify-between items-center">
           <a href="">
             <img src={logo} alt="" />
           </a>
-          <ul className="">
-            <li className="display: inline px-4">
-              <a href="">Placeholder</a>
-            </li>
-            <li className="display: inline px-4">
-              <a href="">Placeholder</a>
-            </li>
-            <li className="display: inline px-4">
-              <a href="">Placeholder</a>
-            </li>
-            <li className="display: inline px-4">
-              <a href="">Placeholder</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <form action="">
-            <div className="relative flex items-center">
-              <div className="absolute left-0 pl-3">
-                <FaMagnifyingGlass className="text-gray-400" />
+          <div className="ml-6 border border-gray-300 rounded-lg">
+            <form action="">
+              <div className="relative flex items-center">
+                <div className="absolute left-0 pl-3">
+                  <FaMagnifyingGlass className="text-gray-400" />
+                </div>
+                <input
+                  className="transition-all duration-500 rounded-lg border border-white px-10 py-2 text-black focus-visible:border-black outline-none"
+                  type="text"
+                  placeholder="Search"
+                />
               </div>
-              <input
-                className="rounded-lg px-10 py-2 text-gray-400"
-                type="text"
-                placeholder="Search"
-              />
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
+
+        <ul className="">
+          <li className="transition-all duration-500 ease-linear display: inline px-4 hover:text-blue-500">
+            <a className="" href="">
+              Placeholder
+            </a>
+          </li>
+          <li className="transition-all duration-500 ease-linear display: inline px-4 hover:text-blue-500">
+            <a href="">Placeholder</a>
+          </li>
+          <li className="transition-all duration-500 ease-linear display: inline px-4 hover:text-blue-500">
+            <a href="">Placeholder</a>
+          </li>
+          <li className="transition-all duration-500 ease-linear display: inline px-4 hover:text-blue-500">
+            <a href="">Sign in</a>
+          </li>
+        </ul>
       </div>
     </nav>
   );

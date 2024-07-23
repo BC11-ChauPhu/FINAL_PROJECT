@@ -3,7 +3,18 @@ import logo from "../vite.svg";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
 const RegisterForm = () => {
-  const registerValidate = (values) => {};
+  const registerValidate = (values) => {
+    const errors = {};
+    if (values.registerUserName.length < 8) {
+      errors.registerUserName = "Username must have at least 5 characters *";
+    }
+    if (!/^[A-Z]/.test(values.registerPassword)) {
+      errors.registerPassword = "Password must have an uppercase letter *";
+    } else if (values.registerPassword.length < 8) {
+      errors.registerPassword = "Password must have at lteast 8 characcters";
+    }
+    return errors;
+  };
   const registerFunc = () => {};
   const register = useFormik({
     initialValues: {
@@ -39,9 +50,17 @@ const RegisterForm = () => {
                 className="input-field"
                 type="text"
                 name="registerUserName"
+                onChange={register.handleChange}
+                value={register.values.registerUserName}
                 required
               />
+              {register.errors.registerUserName ? (
+                <div className="text-red-600">
+                  {register.errors.registerUserName}
+                </div>
+              ) : null}
             </div>
+
             <div className="mb-5">
               <label htmlFor="registerPassword">Password</label>
               <input
@@ -49,8 +68,15 @@ const RegisterForm = () => {
                 className="input-field"
                 type="password"
                 name="registerPassword"
+                onChange={register.handleChange}
+                value={register.values.registerPassword}
                 required
               />
+              {register.errors.registerPassword ? (
+                <div className="text-red-600">
+                  {register.errors.registerPassword}
+                </div>
+              ) : null}
             </div>
             <div className="mb-3">
               <label htmlFor="registerFullName">Full Name</label>
@@ -59,6 +85,8 @@ const RegisterForm = () => {
                 className="input-field"
                 type="email"
                 name="registerUserName"
+                onChange={register.handleChange}
+                value={register.values.registerFullName}
                 required
               />
             </div>
@@ -69,6 +97,8 @@ const RegisterForm = () => {
                 className="input-field"
                 type="tel"
                 name="registerPhone"
+                onChange={register.handleChange}
+                value={register.values.registerPhone}
                 required
               />
             </div>
@@ -79,6 +109,8 @@ const RegisterForm = () => {
                 className="input-field"
                 type="email"
                 name="registerEmail"
+                onChange={register.handleChange}
+                value={register.values.registerEmail}
                 required
               />
             </div>

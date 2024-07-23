@@ -1,8 +1,27 @@
 import React from "react";
 import logo from "../vite.svg";
 import { NavLink } from "react-router-dom";
+import { useFormik } from "formik";
 
 const SignInForm = () => {
+  const signInValidate = (values) => {
+    const errors = {};
+    if (!/[A-Z]/.test(values.signInPassword)) {
+      errors.signInPassword = "Password must have an uppercase letter *";
+    } else if (values.signInPassword.length < 8) {
+      errors.signInPassword = "Password must have at least 8 characters *";
+    }
+  };
+  const signInFunc = () => {};
+  const signIn = useFormik({
+    initialValues: {
+      signInUserName: "",
+      signInPassword: "",
+      maNhom: "GP01",
+    },
+    validate: signInValidate,
+    onSubmit: signInFunc,
+  });
   return (
     <section className="flex justify-center items-start w-full transition-all z-10">
       <div className="max-w-lg bg-white py-10 px-14 rounded-lg">
@@ -18,13 +37,15 @@ const SignInForm = () => {
         </div>
 
         <div>
-          <form action="">
+          <form onSubmit={signIn.handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="signInEmail">Email</label>
+              <label htmlFor="signInEmail">User Name</label>
               <input
                 className="input-field"
-                type="email"
-                name="signInEmail"
+                type="text"
+                name="signInUserName"
+                onChange={signIn.handleChange}
+                value={signIn.values.signInUserName}
                 required
               />
             </div>
@@ -34,6 +55,8 @@ const SignInForm = () => {
                 className="input-field"
                 type="password"
                 name="signInPassword"
+                onChange={signIn.handleChange}
+                value={signIn.values.signInPassword}
                 required
               />
             </div>

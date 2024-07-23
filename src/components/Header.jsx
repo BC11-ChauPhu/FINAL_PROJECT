@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../vite.svg";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import PopUpForm from "./PopUpForm";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
-      <PopUpForm />
       <nav className="fixed left-0 top-0 w-screen m-0 py-4 text-black border-b border-b-gray-300 z-0">
         <div className="h-full container  m-auto flex justify-between items-center">
           <div className="flex justify-between items-center">
@@ -42,7 +41,7 @@ const Header = () => {
               <a href="">Placeholder</a>
             </li>
             <li className="transition-all duration-500 ease-linear display: inline px-4 font-semibold hover:text-blue-500">
-              <a href="">Sign in</a>
+              <NavLink to="/sign-in">Sign In</NavLink>
             </li>
           </ul>
         </div>

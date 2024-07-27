@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../vite.svg";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
@@ -6,44 +6,49 @@ import { NavLink } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <nav className="fixed left-0 top-0 w-screen m-0 py-4 text-black border-b border-b-gray-300 z-0">
-        <div className="h-full container  m-auto flex justify-between items-center">
-          <div className="flex justify-between items-center">
-            <a href="">
-              <img src={logo} alt="" />
-            </a>
-            <div className="ml-6 border border-gray-300 rounded-lg">
-              <form action="">
-                <div className="relative flex items-center">
-                  <div className="absolute left-0 pl-3">
-                    <FaMagnifyingGlass className="text-gray-400" />
-                  </div>
-                  <input
-                    className="transition-all duration-500 rounded-lg border border-white px-10 py-2 text-black focus-visible:border-black outline-none"
-                    type="text"
-                    placeholder="Search"
-                  />
-                </div>
-              </form>
-            </div>
+      <nav id="header" className="container relative mx-auto p-6">
+        <div className="flex items-center justify-between">
+          <div className="py-2">
+            <img src={logo} alt="" />
           </div>
-
-          <ul className="">
-            <li className="transition-all duration-500 ease-linear display: inline px-4 font-semibold hover:text-blue-500">
-              <a className="" href="">
-                Placeholder
-              </a>
-            </li>
-            <li className="transition-all duration-500 ease-linear display: inline px-4 font-semibold hover:text-blue-500">
-              <a href="">Placeholder</a>
-            </li>
-            <li className="transition-all duration-500 ease-linear display: inline px-4 font-semibold hover:text-blue-500">
-              <a href="">Placeholder</a>
-            </li>
-            <li className="transition-all duration-500 ease-linear display: inline px-4 font-semibold hover:text-blue-500">
-              <NavLink to="/sign-in">Sign In</NavLink>
-            </li>
-          </ul>
+          <div className="hidden space-x-6 md:flex">
+            <NavLink
+              className="text-polarnight4 hover:text-polarnight4 font-semibold transition-all duration-500"
+              to="/"
+            >
+              Pricing
+            </NavLink>
+            <NavLink
+              className="text-polarnight4 hover:text-polarnight4 font-semibold transition-all duration-500"
+              to="/"
+            >
+              Product
+            </NavLink>
+            <NavLink
+              className="text-polarnight4 hover:text-polarnight4 font-semibold transition-all duration-500"
+              to="/"
+            >
+              About Us
+            </NavLink>
+            <NavLink
+              className="text-polarnight4 hover:text-polarnight4 font-semibold transition-all duration-500"
+              to="/"
+            >
+              Community
+            </NavLink>
+            <NavLink
+              className="text-polarnight4 hover:text-polarnight4 font-semibold transition-all duration-500"
+              to="/sign-in"
+            >
+              Sign In
+            </NavLink>
+          </div>
+          <NavLink
+            className="bg-polarnight2 hover:bg-frost4 hidden rounded-full px-6 py-2 text-white transition-all duration-500 md:block"
+            to="/"
+          >
+            Get Started
+          </NavLink>
         </div>
       </nav>
     </>

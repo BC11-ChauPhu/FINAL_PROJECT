@@ -5,6 +5,6 @@
 
 @layer components {
   .input-field {
-    @apply w-full mt-3 transition-all duration-500 rounded-lg border border-gray-300 py-2 px-6 text-black focus-visible:border-black outline-none;
+    @apply mt-3 w-full rounded-lg border border-gray-300 px-6 py-2 text-black outline-none transition-all duration-500 focus-visible:border-black;
   }
 }

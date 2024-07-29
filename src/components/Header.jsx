@@ -1,54 +1,49 @@
 import React from "react";
-import logo from "../vite.svg";
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaAirbnb } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
     <>
-      <nav id="header" className="fixed left-0 top-0 z-10 w-screen">
-        <div className="container relative p-6 sm:max-w-full md:mx-auto md:max-w-7xl">
+      <nav
+        id="header"
+        className="fixed left-0 top-0 z-10 w-screen bg-white px-6 py-1"
+      >
+        <div className="container relative sm:max-w-full md:mx-auto md:max-w-7xl">
           <div className="flex items-center justify-between">
-            <div className="py-2">
-              <img src={logo} alt="" />
+            <div className="flex items-center py-2 text-[#FF385C]">
+              <FaAirbnb className="text-4xl" />
+              <span className="font-bold">airbnb</span>
             </div>
-            <div className="hidden space-x-6 md:flex">
+            <div className="hidden space-x-6 text-gray-600 md:flex">
               <NavLink
-                className="font-semibold text-polarnight4 transition-all duration-500 hover:text-polarnight4"
+                className="transition-all duration-500 hover:text-black"
                 to="/"
               >
-                Locations
+                {" "}
+                Stays
               </NavLink>
               <NavLink
-                className="font-semibold text-polarnight4 transition-all duration-500 hover:text-polarnight4"
+                className="transition-all duration-500 hover:text-black"
                 to="/"
               >
-                Expeiences
+                Experiences
               </NavLink>
               <NavLink
-                className="font-semibold text-polarnight4 transition-all duration-500 hover:text-polarnight4"
+                className="transition-all duration-500 hover:text-black"
                 to="/"
               >
                 Online Experiences
               </NavLink>
-              <NavLink
-                className="font-semibold text-polarnight4 transition-all duration-500 hover:text-polarnight4"
-                to="/"
-              >
-                Community
-              </NavLink>
-              <NavLink
-                className="font-semibold text-polarnight4 transition-all duration-500 hover:text-polarnight4"
-                to="/sign-in"
-              >
-                Pricing
-              </NavLink>
             </div>
             <NavLink
-              className="hidden rounded-full bg-polarnight2 px-6 py-2 text-white transition-all duration-500 hover:bg-frost4 md:block"
+              className="text-dark hidden items-center justify-between space-x-3 rounded-full border border-gray-300 bg-white px-2 py-2 font-semibold drop-shadow-lg transition-all duration-500 hover:text-gray-500 hover:drop-shadow-2xl md:flex"
               to="/sign-in"
             >
-              Sign In
+              <RxHamburgerMenu />
+              <FaUserCircle className="text-3xl" />
             </NavLink>
             <div className="flex items-center md:hidden">
               <button
@@ -66,16 +61,22 @@ const Header = () => {
               </button>
             </div>
           </div>
+          <div>
+            <NavLink></NavLink>
+          </div>
         </div>
         <div className="md:hidden">
           <div
             id="menu"
-            className="absolute left-6 right-6 hidden w-auto flex-col items-center space-y-6 self-center bg-polarnight1 py-8 font-bold text-snowstorm1 drop-shadow-md transition-all duration-300 md:mt-10 md:hidden md:self-end"
+            className="absolute left-6 right-6 hidden w-auto flex-col items-center space-y-6 self-center rounded-l border border-gray-300 bg-white py-8 font-bold text-black drop-shadow-md transition-all duration-300 md:mt-10 md:hidden md:self-end"
           >
+            <div className="items-centers flex w-full flex-col space-y-6 border-b border-gray-300 pb-6 text-center">
+              <NavLink to="/sign-in">Sign In</NavLink>
+              <NavLink to="/register">Register</NavLink>
+            </div>
             <NavLink to="/">Locations</NavLink>
             <NavLink to="/">Experiences</NavLink>
             <NavLink to="/">Online Experiences</NavLink>
-            <NavLink to="/sign-in">Sign In</NavLink>
           </div>
         </div>
       </nav>

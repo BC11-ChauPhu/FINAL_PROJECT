@@ -20,7 +20,7 @@ const HeroSection = () => {
             <div className="flex justify-center md:justify-start">
               <NavLink
                 to="/"
-                className="rounded-full bg-polarnight2 px-6 py-2 text-snowstorm1 transition-all duration-500 hover:bg-frost4"
+                className="rounded-full bg-polarnight2 px-6 py-2 text-snowstorm1 transition-all duration-500 hover:bg-frost4 md:self-end"
               >
                 Get Started
               </NavLink>

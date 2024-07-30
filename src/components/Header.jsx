@@ -9,7 +9,7 @@ const Header = () => {
     <>
       <nav
         id="header"
-        className="fixed left-0 top-0 z-10 w-screen bg-white px-6 py-1"
+        className="fixed left-0 top-0 z-[1] w-screen bg-white px-6 py-1"
       >
         <div className="container relative sm:max-w-full md:mx-auto md:max-w-7xl">
           <div className="flex items-center justify-between">

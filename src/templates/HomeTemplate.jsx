@@ -8,6 +8,7 @@ const HomeTemplate = () => {
     <>
       <Header />
       <Outlet />
+      <Footer />
     </>
   );
 };

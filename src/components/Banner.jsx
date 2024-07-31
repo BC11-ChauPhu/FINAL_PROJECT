@@ -11,7 +11,7 @@ const Banner = () => {
       style={{ backgroundImage: `url(${bannerBg})` }}
     >
       <div className="container relative h-96 max-w-full p-6 md:mx-auto md:max-w-7xl">
-        <div className="mx-auto mt-20 h-14 max-w-md rounded-full bg-white/90 shadow-xl">
+        <div className="mx-auto mt-20 h-14 max-w-md rounded-full bg-white shadow-xl transition-all duration-500 hover:bg-gray-200">
           <div
             className="grid h-full"
             onClick={() => {

@@ -11,7 +11,7 @@ const Banner = () => {
       style={{ backgroundImage: `url(${bannerBg})` }}
     >
       <div className="container relative h-96 max-w-full p-6 md:mx-auto md:max-w-7xl">
-        <div className="mx-auto mt-20 h-14 max-w-md rounded-full bg-white shadow-xl transition-all duration-500 hover:bg-gray-200">
+        <div className="mx-auto mt-20 h-14 max-w-md rounded-full bg-white shadow-xl transition-all duration-500 hover:bg-gray-200 md:hidden">
           <div
             className="grid h-full"
             onClick={() => {
@@ -37,10 +37,67 @@ const Banner = () => {
             </div>
           </div>
         </div>
+        <div className="mx-auto mt-20 flex h-[66px] max-w-[850px] shadow-xl">
+          <div className="flex">
+            <div>
+              <div className="bannerSeachLocale flex h-full">
+                <label
+                  htmlFor=""
+                  className="rounded-bl-3xl rounded-tl-3xl bg-white px-8 py-4 transition-all duration-500 hover:bg-gray-200"
+                >
+                  <div className="flex w-full flex-col items-center justify-start">
+                    <div className="w-full text-left text-xs font-semibold">
+                      Where
+                    </div>
+                    <input
+                      type="search"
+                      placeholder="Search destinations"
+                      className="h-[18px] placeholder:text-sm focus-visible:outline-none"
+                    />
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div className="flex items-center bg-white">
+              <div className="h-8 self-center border-r border-r-gray-300"></div>
+            </div>
+            <div className="flex">
+              <div className="flex h-full">
+                <div className="bg-white px-6 py-4">
+                  <div className="text-xs font-semibold">Check in</div>
+                  <div className="text-sm text-gray-400">Add dates</div>
+                </div>
+              </div>
+              <div className="flex items-center bg-white">
+                <div className="h-8 border-r border-r-gray-300"></div>
+              </div>
+              <div className="flex h-full">
+                <div className="bg-white px-6 py-4">
+                  <div className="text-xs font-semibold">Check out</div>
+                  <div className="text-sm text-gray-400">Add dates</div>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center bg-white">
+              <div className="h-8 border-r border-r-gray-300"></div>
+            </div>
+            <div className="flex bg-white">
+              <div>
+                <div>
+                  <div className="px-6 py-4">
+                    <div className="text-xs font-semibold">Who</div>
+                    <div className="text-sm text-gray-400">Add guests</div>
+                  </div>
+                </div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         id="popup-location"
-        className="fixed top-0 z-[2] hidden h-screen w-screen flex-col bg-white"
+        className="small-popup fixed top-0 z-[2] hidden h-screen w-screen flex-col bg-white"
       >
         <div className="z-[2] px-5 py-3">
           <IoClose

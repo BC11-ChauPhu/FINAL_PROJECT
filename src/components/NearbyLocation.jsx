@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { http } from "../service/config";
+import { IoIosStar } from "react-icons/io";
 
 const NearbyLocation = () => {
   const [locations, setLocation] = useState([]);
@@ -33,10 +34,23 @@ const NearbyLocation = () => {
                     alt=""
                   />
                 </div>
-                <div>
-                  <p className="mt-2 text-center font-semibold">
-                    {item.tenViTri} - {item.tinhThanh} - {item.quocGia}
-                  </p>
+                <div className="mt-2 grid grid-cols-[87%_13%] items-start text-left text-sm">
+                  <div>
+                    <p className="font-semibold">
+                      {item.tenViTri}, {item.tinhThanh}, {item.quocGia}
+                    </p>
+                    <p className="mt text-gray-500">
+                      Lorem ipsum dolor sit amet consectetur adipisicing.
+                    </p>
+                  </div>
+                  <div>
+                    <span className="flex items-baseline justify-between">
+                      <span>
+                        <IoIosStar className="block h-3 w-3" />
+                      </span>
+                      <span>4.5</span>
+                    </span>
+                  </div>
                 </div>
               </div>
             );

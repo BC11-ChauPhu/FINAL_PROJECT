@@ -21,6 +21,7 @@ export default {
         frost2: "#88c0d0",
         frost3: "#81a1c1",
         frost4: "#5e81ac",
+        brand: "#ff385c",
       },
     },
   },

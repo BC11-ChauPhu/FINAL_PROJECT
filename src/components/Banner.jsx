@@ -37,13 +37,13 @@ const Banner = () => {
             </div>
           </div>
         </div>
-        <div className="mx-auto mt-20 flex h-[66px] max-w-[850px] shadow-xl">
+        <div className="mx-auto mt-20 hidden h-[66px] shadow-xl md:flex md:max-w-[668px] lg:max-w-[850px]">
           <div className="flex">
-            <div>
+            <div className="md:max-w-[230px] lg:max-w-[300px]">
               <div className="bannerSeachLocale flex h-full">
                 <label
                   htmlFor=""
-                  className="rounded-bl-3xl rounded-tl-3xl bg-white px-8 py-4 transition-all duration-500 hover:bg-gray-200"
+                  className="rounded-bl-full rounded-tl-full bg-white px-8 py-4 transition-all duration-500 hover:bg-gray-200"
                 >
                   <div className="flex w-full flex-col items-center justify-start">
                     <div className="w-full text-left text-xs font-semibold">
@@ -63,7 +63,7 @@ const Banner = () => {
             </div>
             <div className="flex">
               <div className="flex h-full">
-                <div className="bg-white px-6 py-4">
+                <div className="bg-white px-6 py-4 transition-all duration-500 hover:bg-gray-200">
                   <div className="text-xs font-semibold">Check in</div>
                   <div className="text-sm text-gray-400">Add dates</div>
                 </div>
@@ -72,7 +72,7 @@ const Banner = () => {
                 <div className="h-8 border-r border-r-gray-300"></div>
               </div>
               <div className="flex h-full">
-                <div className="bg-white px-6 py-4">
+                <div className="bg-white px-6 py-4 transition-all duration-500 hover:bg-gray-200">
                   <div className="text-xs font-semibold">Check out</div>
                   <div className="text-sm text-gray-400">Add dates</div>
                 </div>
@@ -81,15 +81,25 @@ const Banner = () => {
             <div className="flex items-center bg-white">
               <div className="h-8 border-r border-r-gray-300"></div>
             </div>
-            <div className="flex bg-white">
+            <div className="flex items-center justify-between rounded-br-full rounded-tr-full bg-white md:w-[230px] lg:w-[300px]">
               <div>
-                <div>
+                <div className="w-full">
                   <div className="px-6 py-4">
-                    <div className="text-xs font-semibold">Who</div>
-                    <div className="text-sm text-gray-400">Add guests</div>
+                    <div className="w-full text-xs font-semibold">Who</div>
+                    <div className="w-full text-sm text-gray-400">
+                      Add guests
+                    </div>
                   </div>
                 </div>
-                <div></div>
+              </div>
+              <div className="pr-2">
+                <div className="">
+                  <button className="bg-brand rounded-full p-3 text-white">
+                    <div>
+                      <FaMagnifyingGlass className="block h-4 w-4 stroke-[4px]" />
+                    </div>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

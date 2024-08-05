@@ -81,7 +81,7 @@ const Banner = () => {
             <div className="flex items-center bg-white">
               <div className="h-8 border-r border-r-gray-300"></div>
             </div>
-            <div className="flex items-center justify-between rounded-br-full rounded-tr-full bg-white md:w-[230px] lg:w-[300px]">
+            <div className="md:-w-[230px] flex items-center justify-between rounded-br-full rounded-tr-full bg-white lg:w-[300px]">
               <div>
                 <div className="w-full">
                   <div className="px-6 py-4">
@@ -94,7 +94,7 @@ const Banner = () => {
               </div>
               <div className="pr-2">
                 <div className="">
-                  <button className="bg-brand rounded-full p-3 text-white">
+                  <button className="rounded-full bg-brand p-3 text-white">
                     <div>
                       <FaMagnifyingGlass className="block h-4 w-4 stroke-[4px]" />
                     </div>

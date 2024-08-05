@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { http } from "../service/config";
 import { IoIosStar } from "react-icons/io";
+import { FaHeart } from "react-icons/fa6";
 
 const NearbyLocation = () => {
   const [locations, setLocation] = useState([]);
@@ -23,16 +24,23 @@ const NearbyLocation = () => {
             Discover nearby destinations
           </h1>
         </div>
-        <div className="grid space-y-6 md:grid-cols-2 md:gap-6 md:gap-y-10 md:space-y-0 lg:grid-cols-4">
+        <div className="grid space-y-6 md:grid-cols-2 md:gap-6 md:gap-y-10 md:space-y-0 lg:grid-cols-3 xl:grid-cols-4">
           {locations?.map((item, index) => {
             return (
               <div key={index} className="flex flex-col">
-                <div className="md:h-96 lg:h-full">
+                <div className="relative md:h-96 lg:h-full">
                   <img
                     className="rounded-lg md:h-full md:w-full"
                     src={item.hinhAnh}
                     alt=""
                   />
+                  <div>
+                    <div className="absolute right-3 top-3">
+                      <button className="rounded-lg bg-white/80 p-3 transition-all duration-500 hover:bg-white">
+                        <FaHeart className="block h-6 w-6 text-brand" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div className="mt-2 grid grid-cols-[87%_13%] items-start text-left text-sm">
                   <div>
@@ -50,6 +58,9 @@ const NearbyLocation = () => {
                       </span>
                       <span>4.5</span>
                     </span>
+                  </div>
+                  <div className="mt-1">
+                    <span className="font-semibold">$100</span> night
                   </div>
                 </div>
               </div>

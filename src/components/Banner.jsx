@@ -1,9 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { http } from "../service/config";
 import bannerBg from "../assets/img/hoi-an-8104131_1280.jpg";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import SearchResultList from "./SearchResultList";
 
 const Banner = () => {
+  const [input, setInput] = useState("");
+  const [filteredList, setfilteredList] = useState([]);
+
+  useEffect(() => {
+    console.log(filteredList);
+  }, [filteredList]);
+
+  const fetchData = (value) =>
+    http
+      .get("/api/vi-tri")
+      .then((res) => {
+        const result = res.data.content.filter((item) => {
+          return (
+            value &&
+            item &&
+            item.tenViTri &&
+            item.tenViTri.toLowerCase().includes(value)
+          );
+        });
+        setfilteredList(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+  const handleChange = (value) => (setInput(value), fetchData(value));
+
   return (
     <section
       id="banner"
@@ -15,6 +44,9 @@ const Banner = () => {
           <div
             className="grid h-full"
             onClick={() => {
+              document
+                .getElementById("nearbyLocation")
+                .classList.toggle("hidden");
               document
                 .getElementById("popup-location")
                 .classList.toggle("hidden");
@@ -107,7 +139,7 @@ const Banner = () => {
       </div>
       <div
         id="popup-location"
-        className="small-popup fixed top-0 z-[2] hidden h-screen w-screen flex-col bg-white"
+        className="small-popup fixed top-0 z-[2] hidden h-screen w-screen flex-col bg-white transition-all duration-500"
       >
         <div className="z-[2] px-5 py-3">
           <IoClose
@@ -119,6 +151,9 @@ const Banner = () => {
                 .getElementById("popup-location")
                 .classList.toggle("hidden");
               document.getElementById("header").classList.toggle("hidden");
+              document
+                .getElementById("nearbyLocation")
+                .classList.toggle("block");
             }}
             className="rounded-full border border-gray-300 p-1 text-3xl"
           />
@@ -141,11 +176,14 @@ const Banner = () => {
                     type="search"
                     placeholder="Search destinations"
                     className="h-full w-full focus-visible:outline-none"
+                    value={input}
+                    onChange={(e) => handleChange(e.target.value)}
                   />
                 </label>
               </div>
             </form>
           </button>
+          <SearchResultList filteredList={filteredList} />
         </div>
       </div>
     </section>

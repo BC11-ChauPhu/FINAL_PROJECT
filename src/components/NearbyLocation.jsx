@@ -17,7 +17,7 @@ const NearbyLocation = () => {
   }, []);
 
   return (
-    <section id="nearbyLocation">
+    <section id="nearbyLocation" className="block">
       <div className="container mx-auto mt-10 px-6 lg:mb-10">
         <div className="mb-10">
           <h1 className="text-center text-3xl font-bold md:text-left">

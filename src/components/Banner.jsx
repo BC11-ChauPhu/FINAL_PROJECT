@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { http } from "../service/config";
-import bannerBg from "../assets/img/hoi-an-8104131_1280.jpg";
+import bannerBg from "../assets/img/banner.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import SearchResultList from "./SearchResultList";
+import SearchResultMedium from "./SearchResultMedium";
 
 const Banner = () => {
   const [input, setInput] = useState("");
   const [filteredList, setfilteredList] = useState([]);
-
-  useEffect(() => {
-    console.log(filteredList);
-  }, [filteredList]);
+  const [showResults, setShowResults] = useState(false);
 
   const fetchData = (value) =>
     http
@@ -31,29 +29,39 @@ const Banner = () => {
         console.log(err);
       });
 
-  const handleChange = (value) => (setInput(value), fetchData(value));
+  const handleShowResults = (value) => {
+    setShowResults(value.trim().length > 0);
+  };
+
+  const handleChange = (value) => (
+    setInput(value), fetchData(value), handleShowResults(value)
+  );
 
   return (
     <section
       id="banner"
-      className="relative z-0 h-[500px] bg-cover bg-center md:h-[700px]"
+      className="block h-[400px] bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url(${bannerBg})` }}
     >
       <div className="container relative h-96 max-w-full p-6 md:mx-auto md:max-w-7xl">
+        {/* SMALL SEARCHBAR */}
         <div className="mx-auto mt-20 h-14 max-w-md rounded-full bg-white shadow-xl transition-all duration-500 hover:bg-gray-200 md:hidden">
           <div
             className="grid h-full"
             onClick={() => {
-              document
-                .getElementById("nearbyLocation")
-                .classList.toggle("hidden");
-              document
-                .getElementById("popup-location")
-                .classList.toggle("hidden");
-              document
-                .getElementById("popup-location")
-                .classList.toggle("flex");
-              document.getElementById("header").classList.toggle("hidden");
+              const nearbyLocation = document.getElementById("nearbyLocation");
+              const popupLocation = document.getElementById("popup-location");
+              const header = document.getElementById("header");
+              const staticLocale = document.getElementById("staticLocale");
+              const footer = document.getElementById("footer");
+              if (nearbyLocation) nearbyLocation.classList.toggle("hidden");
+              if (popupLocation) {
+                popupLocation.classList.toggle("hidden");
+                popupLocation.classList.toggle("flex");
+              }
+              if (header) header.classList.toggle("hidden");
+              if (staticLocale) staticLocale.classList.toggle("hidden");
+              if (footer) footer.classList.toggle("hidden");
             }}
           >
             <div className="grid grid-cols-6 items-center">
@@ -69,13 +77,15 @@ const Banner = () => {
             </div>
           </div>
         </div>
+        {/* MEDIUM SEARCHBAR */}
         <div className="mx-auto mt-20 hidden h-[66px] shadow-xl md:flex md:max-w-[668px] lg:max-w-[850px]">
-          <div className="flex">
+          {/* SEARCH FORM */}
+          <div className="relative flex">
             <div className="md:max-w-[230px] lg:max-w-[300px]">
-              <div className="bannerSeachLocale flex h-full">
+              <div className="bannerSeachLocale flex h-full md:max-w-full">
                 <label
                   htmlFor=""
-                  className="rounded-bl-full rounded-tl-full bg-white px-8 py-4 transition-all duration-500 hover:bg-gray-200"
+                  className="rounded-bl-full rounded-tl-full bg-white px-8 py-4 transition-all duration-500 hover:bg-gray-200 md:max-w-full"
                 >
                   <div className="flex w-full flex-col items-center justify-start">
                     <div className="w-full text-left text-xs font-semibold">
@@ -84,7 +94,9 @@ const Banner = () => {
                     <input
                       type="search"
                       placeholder="Search destinations"
-                      className="h-[18px] placeholder:text-sm focus-visible:outline-none"
+                      className="md:placeholder: h-[18px] w-full text-sm outline-none focus-visible:outline-none"
+                      value={input}
+                      onChange={(e) => handleChange(e.target.value)}
                     />
                   </div>
                 </label>
@@ -134,56 +146,66 @@ const Banner = () => {
                 </div>
               </div>
             </div>
+            {showResults && <SearchResultMedium filteredList={filteredList} />}
           </div>
         </div>
       </div>
+      {/* POPUP SEARCH FOR SMALL SCREEN */}
       <div
         id="popup-location"
         className="small-popup fixed top-0 z-[2] hidden h-screen w-screen flex-col bg-white transition-all duration-500"
       >
+        {/* CLOSE BUTTON */}
         <div className="z-[2] px-5 py-3">
           <IoClose
             onClick={() => {
-              document
-                .getElementById("popup-location")
-                .classList.toggle("flex");
-              document
-                .getElementById("popup-location")
-                .classList.toggle("hidden");
-              document.getElementById("header").classList.toggle("hidden");
-              document
-                .getElementById("nearbyLocation")
-                .classList.toggle("block");
+              const nearbyLocation = document.getElementById("nearbyLocation");
+              const popupLocation = document.getElementById("popup-location");
+              const header = document.getElementById("header");
+              const staticLocale = document.getElementById("staticLocale");
+              const footer = document.getElementById("footer");
+              if (nearbyLocation) nearbyLocation.classList.toggle("hidden");
+              if (popupLocation) {
+                popupLocation.classList.toggle("hidden");
+                popupLocation.classList.toggle("flex");
+              }
+              if (header) header.classList.toggle("hidden");
+              if (staticLocale) staticLocale.classList.toggle("hidden");
+              if (footer) footer.classList.toggle("hidden");
             }}
             className="rounded-full border border-gray-300 p-1 text-3xl"
           />
         </div>
+        {/* SEARCH FORM */}
         <div className="mx-3 mt-4 rounded-3xl border border-gray-300 p-6 shadow-lg">
           <div>
             <span className="text-xl font-bold">Where to?</span>
           </div>
-          <button className="mt-5 max-w-full rounded-lg border border-gray-500">
-            <form>
-              <div>
-                <label
-                  htmlFor=""
-                  className="flex h-14 items-center justify-between space-x-4 px-5"
-                >
-                  <div className="flex h-full items-center">
-                    <FaMagnifyingGlass />
-                  </div>
-                  <input
-                    type="search"
-                    placeholder="Search destinations"
-                    className="h-full w-full focus-visible:outline-none"
-                    value={input}
-                    onChange={(e) => handleChange(e.target.value)}
-                  />
-                </label>
-              </div>
-            </form>
-          </button>
-          <SearchResultList filteredList={filteredList} />
+          <div className="flex max-h-[415px] flex-col justify-between space-y-6">
+            <button className="mt-5 max-w-full rounded-lg border border-gray-500">
+              <form>
+                <div>
+                  <label
+                    htmlFor=""
+                    className="flex h-14 items-center justify-between space-x-4 px-5"
+                  >
+                    <div className="flex h-full items-center">
+                      <FaMagnifyingGlass />
+                    </div>
+                    <input
+                      type="search"
+                      placeholder="Search destinations"
+                      className="h-full w-full outline-none focus-visible:outline-none"
+                      value={input}
+                      onChange={(e) => handleChange(e.target.value)}
+                    />
+                  </label>
+                </div>
+              </form>
+            </button>
+            {/* SEARCH RESULT */}
+            <SearchResultList filteredList={filteredList} />
+          </div>
         </div>
       </div>
     </section>

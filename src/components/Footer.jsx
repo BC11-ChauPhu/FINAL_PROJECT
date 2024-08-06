@@ -5,7 +5,7 @@ import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <section className="border-t border-t-gray-300 text-black">
+    <section className="border-t border-t-gray-300 text-black" id="footer">
       <div className="container m-auto">
         <div className="grid gap-y-6 p-6 md:grid-cols-4 md:gap-x-4">
           <div className="">

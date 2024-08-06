@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { http } from "../service/config";
 import bannerBg from "../assets/img/banner.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -10,6 +10,7 @@ const Banner = () => {
   const [input, setInput] = useState("");
   const [filteredList, setfilteredList] = useState([]);
   const [showResults, setShowResults] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   const fetchData = (value) =>
     http
@@ -31,6 +32,14 @@ const Banner = () => {
 
   const handleShowResults = (value) => {
     setShowResults(value.trim().length > 0);
+  };
+
+  const handleLocationSelect = (tenViTri, tinhThanh, quocGia) => {
+    const locationString = `${tenViTri}, ${tinhThanh}, ${quocGia}`;
+    setInput(locationString);
+    setSelectedLocation({ tenViTri, tinhThanh, quocGia });
+    setShowResults(false);
+    console.log(`Selected location: ${tenViTri}, ${tinhThanh}, ${quocGia}`);
   };
 
   const handleChange = (value) => (
@@ -92,9 +101,10 @@ const Banner = () => {
                       Where
                     </div>
                     <input
+                      id="mediumSearchBar"
                       type="search"
                       placeholder="Search destinations"
-                      className="md:placeholder: h-[18px] w-full text-sm outline-none focus-visible:outline-none"
+                      className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm outline-none focus-visible:outline-none md:placeholder:h-[18px]"
                       value={input}
                       onChange={(e) => handleChange(e.target.value)}
                     />
@@ -146,7 +156,12 @@ const Banner = () => {
                 </div>
               </div>
             </div>
-            {showResults && <SearchResultMedium filteredList={filteredList} />}
+            {showResults && (
+              <SearchResultMedium
+                filteredList={filteredList}
+                onLocationSelect={handleLocationSelect}
+              />
+            )}
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import HomeTemplate from "../templates/HomeTemplate";
 import HomePage from "../pages/HomePage";
 import SignInPage from "../pages/SignInPage";
 import RegisterPage from "../pages/RegisterPage";
+import SelectedLocationPage from "../pages/SelectedLocationPage";
 
 const useCustomRoutes = () => {
   const myRoutes = useRoutes([
@@ -11,6 +12,10 @@ const useCustomRoutes = () => {
       path: "",
       element: <HomeTemplate />,
       children: [{ index: true, element: <HomePage /> }],
+    },
+    {
+      path: "selectedLocation/:id",
+      element: <SelectedLocationPage />,
     },
     {
       path: "/sign-in",

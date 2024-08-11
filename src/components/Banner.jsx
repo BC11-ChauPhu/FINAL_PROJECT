@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { http } from "../service/config";
 import bannerBg from "../assets/img/banner.png";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import SearchResultList from "./SearchResultList";
 import SearchResultMedium from "./SearchResultMedium";
+import { useNavigate } from "react-router-dom";
 
 const Banner = () => {
   const [input, setInput] = useState("");
   const [filteredList, setfilteredList] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState({});
+  const navigate = useNavigate();
 
   const fetchData = (value) =>
     http
@@ -34,12 +36,11 @@ const Banner = () => {
     setShowResults(value.trim().length > 0);
   };
 
-  const handleLocationSelect = (tenViTri, tinhThanh, quocGia) => {
-    const locationString = `${tenViTri}, ${tinhThanh}, ${quocGia}`;
+  const handleLocationSelect = (tenViTri, tinhThanh, quocGia, id) => {
+    const locationString = `${tenViTri}, ${tinhThanh}, ${quocGia},`;
     setInput(locationString);
-    setSelectedLocation({ tenViTri, tinhThanh, quocGia });
+    setSelectedLocation({ tenViTri, tinhThanh, quocGia, id });
     setShowResults(false);
-    console.log(`Selected location: ${tenViTri}, ${tinhThanh}, ${quocGia}`);
   };
 
   const handleChange = (value) => (
@@ -210,7 +211,7 @@ const Banner = () => {
                     <input
                       type="search"
                       placeholder="Search destinations"
-                      className="h-full w-full outline-none focus-visible:outline-none"
+                      className="h-full w-full overflow-hidden overflow-ellipsis whitespace-nowrap outline-none focus-visible:outline-none"
                       value={input}
                       onChange={(e) => handleChange(e.target.value)}
                     />
@@ -219,7 +220,30 @@ const Banner = () => {
               </form>
             </button>
             {/* SEARCH RESULT */}
-            <SearchResultList filteredList={filteredList} />
+            {showResults && (
+              <SearchResultList
+                filteredList={filteredList}
+                onLocationSelect={handleLocationSelect}
+              />
+            )}
+          </div>
+        </div>
+        {/* SEARCH BUTTON */}
+        <div className="r-0 fixed bottom-0 px-6 py-2">
+          <div>
+            <button
+              className="inline-block rounded-lg bg-brand px-[24px] py-[14px] text-white"
+              onClick={() =>
+                navigate(`/selectedLocation/${selectedLocation.id}`)
+              }
+            >
+              <div className="flex items-center gap-x-2">
+                <span>
+                  <FaMagnifyingGlass />
+                </span>
+                <span>Search</span>
+              </div>
+            </button>
           </div>
         </div>
       </div>

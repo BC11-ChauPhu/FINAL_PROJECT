@@ -29,11 +29,13 @@ const NearbyLocation = () => {
             return (
               <div key={index} className="flex flex-col">
                 <div className="relative md:h-96 lg:h-full">
-                  <img
-                    className="rounded-lg md:h-full md:w-full"
-                    src={item.hinhAnh}
-                    alt=""
-                  />
+                  <div className="h-full">
+                    <img
+                      className="rounded-lg md:h-full md:w-full"
+                      src={item.hinhAnh}
+                      alt=""
+                    />
+                  </div>
                   <div>
                     <div className="absolute right-3 top-3">
                       <button className="rounded-lg bg-white/80 p-3 transition-all duration-500 hover:bg-white">
@@ -54,7 +56,7 @@ const NearbyLocation = () => {
                   <div>
                     <span className="flex items-baseline justify-between">
                       <span>
-                        <IoIosStar className="block h-3 w-3" />
+                        <IoIosStar className="mr-1 block h-3 w-3" />
                       </span>
                       <span>4.5</span>
                     </span>

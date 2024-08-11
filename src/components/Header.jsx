@@ -2,9 +2,10 @@ import React from "react";
 import { FaAirbnb } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <>
       <nav
@@ -13,7 +14,10 @@ const Header = () => {
       >
         <div className="container relative sm:max-w-full md:mx-auto md:max-w-7xl">
           <div className="flex items-center justify-between">
-            <div className="flex items-center py-2 text-[#FF385C]">
+            <div
+              className="flex cursor-pointer items-center py-2 text-[#FF385C]"
+              onClick={() => navigate(`/`)}
+            >
               <FaAirbnb className="text-4xl" />
               <span className="font-bold">airbnb</span>
             </div>

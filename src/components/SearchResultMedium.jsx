@@ -13,7 +13,12 @@ const SearchResultMedium = ({ filteredList, onLocationSelect }) => {
             className="cursor:pointer flex gap-4 rounded-lg px-4 py-2 hover:bg-gray-200"
             key={index}
             onClick={() =>
-              onLocationSelect(item.tenViTri, item.tinhThanh, item.quocGia)
+              onLocationSelect(
+                item.tenViTri,
+                item.tinhThanh,
+                item.quocGia,
+                item.id,
+              )
             }
           >
             <div className="grid h-12 flex-[0_0_48px] items-center justify-center rounded-xl bg-gray-300 text-center">

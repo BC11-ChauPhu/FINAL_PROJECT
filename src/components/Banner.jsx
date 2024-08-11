@@ -47,6 +47,10 @@ const Banner = () => {
     setInput(value), fetchData(value), handleShowResults(value)
   );
 
+  // useEffect(() => {
+  //   console.log(selectedLocation);
+  // }, [selectedLocation]);
+  //
   return (
     <section
       id="banner"
@@ -148,7 +152,11 @@ const Banner = () => {
                 </div>
               </div>
               <div className="pr-2">
-                <div className="">
+                <div
+                  onClick={() =>
+                    navigate(`location/selectedLocation/${selectedLocation.id}`)
+                  }
+                >
                   <button className="rounded-full bg-brand p-3 text-white">
                     <div>
                       <FaMagnifyingGlass className="block h-4 w-4 stroke-[4px]" />
@@ -234,7 +242,7 @@ const Banner = () => {
             <button
               className="inline-block rounded-lg bg-brand px-[24px] py-[14px] text-white"
               onClick={() =>
-                navigate(`/selectedLocation/${selectedLocation.id}`)
+                navigate(`location/selectedLocation/${selectedLocation.id}`)
               }
             >
               <div className="flex items-center gap-x-2">

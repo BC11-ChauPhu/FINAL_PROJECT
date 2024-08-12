@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { http } from "../service/config";
 import { IoIosStar } from "react-icons/io";
 import { FaHeart } from "react-icons/fa6";
@@ -7,6 +7,8 @@ import { FaHeart } from "react-icons/fa6";
 const SelectedLocation = () => {
   const { id } = useParams();
   const [location, setLocation] = useState([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     http
       .get(`/api/phong-thue/lay-phong-theo-vi-tri?maViTri=${id}`)
@@ -22,13 +24,18 @@ const SelectedLocation = () => {
     <section>
       <div className="px-6 py-20">
         <div className="py-8">
-          <p className="text-center text-xl font-semibold">Selected location</p>
+          <p className="text-center text-xl font-semibold md:text-2xl">
+            Selected location
+          </p>
         </div>
         {/* CONTENT */}
         <div>
           <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
             {location?.map((item, index) => (
-              <div key={index}>
+              <div
+                key={index}
+                onClick={() => navigate(`/location/detail/${id} `)}
+              >
                 <div className="flex flex-col gap-3">
                   {/* IMAGE */}
                   <div className="relative h-56">

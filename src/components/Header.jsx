@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaAirbnb } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -6,11 +6,22 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
+  const scrollHeader = () => {
+    if (document.documentElement.scrollTop > 10) {
+      document.getElementById("header").classList.add("active");
+    } else {
+      document.getElementById("header").classList.remove("active");
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollHeader);
+  });
   return (
     <>
       <nav
         id="header"
-        className="fixed left-0 top-0 z-[1] w-screen border border-b-gray-300 bg-white px-6 py-1"
+        className="fixed left-0 top-0 z-[1] w-screen bg-transparent px-6 py-1 transition-all duration-500 md:border md:border-b-gray-300 md:bg-white"
       >
         <div className="container relative sm:max-w-full md:mx-auto md:max-w-7xl">
           <div className="flex items-center justify-between">

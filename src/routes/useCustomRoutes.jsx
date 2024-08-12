@@ -5,8 +5,8 @@ import HomePage from "../pages/HomePage";
 import SignInPage from "../pages/SignInPage";
 import RegisterPage from "../pages/RegisterPage";
 import SelectedLocationPage from "../pages/SelectedLocationPage";
-import SelectedLocationDetail from "../components/SelectedLocationDetail";
 import LocationTemplate from "../templates/LocationTemplate";
+import LocationDetailPage from "../pages/LocationDetailPage";
 
 const useCustomRoutes = () => {
   const myRoutes = useRoutes([
@@ -25,7 +25,7 @@ const useCustomRoutes = () => {
         },
         {
           path: `detail/:id`,
-          element: <SelectedLocationDetail />,
+          element: <LocationDetailPage />,
         },
       ],
     },

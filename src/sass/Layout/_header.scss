@@ -1,4 +1,7 @@
 #header {
+  &.active {
+    background: white;
+  }
   .hamburger {
     cursor: pointer;
     width: 24px;

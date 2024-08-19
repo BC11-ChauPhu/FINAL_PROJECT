@@ -1,11 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaAirbnb } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../service/AuthContext.jsx";
+import { authEvents } from "../service/authEvents.jsx";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { isAuthenciated, logout } = useAuth();
+  const [authChanged, setAuthChanged] = useState(false);
+
   const scrollHeader = () => {
     if (document.documentElement.scrollTop > 10) {
       document.getElementById("header").classList.add("active");
@@ -15,6 +20,11 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const handleAuthChange = () => {
+      setAuthChanged((prev) => !prev);
+    };
+
+    authEvents.on("authChange", handleAuthChange);
     window.addEventListener("scroll", scrollHeader);
   });
   return (
@@ -86,8 +96,17 @@ const Header = () => {
             className="absolute left-6 right-6 hidden w-auto flex-col items-center space-y-6 self-center rounded-l border border-gray-300 bg-white py-8 font-bold text-black drop-shadow-md transition-all duration-300 md:mt-10 md:hidden md:self-end"
           >
             <div className="items-centers flex w-full flex-col space-y-6 border-b border-gray-300 pb-6 text-center">
-              <NavLink to="/sign-in">Sign In</NavLink>
-              <NavLink to="/register">Register</NavLink>
+              {isAuthenciated ? (
+                <>
+                  <NavLink>Profile</NavLink>
+                  <button onClick={logout}>Logout</button>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/sign-in">Sign In</NavLink>
+                  <NavLink to="/register">Register</NavLink>
+                </>
+              )}
             </div>
             <NavLink to="/">Locations</NavLink>
             <NavLink to="/">Experiences</NavLink>

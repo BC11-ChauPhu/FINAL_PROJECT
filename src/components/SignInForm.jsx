@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { http } from "../service/config";
+import { authEvents } from "../service/authEvents";
 
 const SignInForm = () => {
   const navigate = useNavigate();
@@ -27,8 +28,10 @@ const SignInForm = () => {
         localStorage.setItem("authToken", token);
         localStorage.setItem("user", JSON.stringify(user));
 
+        authEvents.emit("authChange");
         navigate("/");
       } catch (err) {
+        console.log(err);
         const errorMessage =
           err?.response?.data?.content || "An error occurred";
         toast.error(errorMessage, {

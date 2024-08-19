@@ -1,10 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { http } from "../service/config";
 
 const SignInForm = () => {
+  const navigate = useNavigate();
   const signInValidate = (values) => {
     const errors = {};
     if (!/[A-Z]/.test(values.signInPassword)) {
@@ -20,6 +21,13 @@ const SignInForm = () => {
           email: signIn.values.signInEmail,
           Password: signIn.values.signInPassword,
         });
+
+        const { token, user } = res.data.content;
+
+        localStorage.setItem("authToken", token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        navigate("/");
       } catch (err) {
         const errorMessage =
           err?.response?.data?.content || "An error occurred";

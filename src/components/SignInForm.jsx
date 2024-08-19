@@ -1,7 +1,8 @@
 import React from "react";
-import logo from "../vite.svg";
 import { NavLink } from "react-router-dom";
 import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import { http } from "../service/config";
 
 const SignInForm = () => {
   const signInValidate = (values) => {
@@ -12,21 +13,36 @@ const SignInForm = () => {
       errors.signInPassword = "Password must have at least 8 characters *";
     }
   };
-  const signInFunc = () => {};
+  const signInFunc = () => {
+    const pushData = async () => {
+      try {
+        const res = await http.post("/api/auth/signin", {
+          email: signIn.values.signInEmail,
+          Password: signIn.values.signInPassword,
+        });
+      } catch (err) {
+        const errorMessage =
+          err?.response?.data?.content || "An error occurred";
+        toast.error(errorMessage, {
+          autoClose: 2000,
+          position: "top-center",
+        });
+      }
+    };
+    pushData();
+  };
   const signIn = useFormik({
     initialValues: {
-      signInUserName: "",
+      signInEmail: "",
       signInPassword: "",
-      maNhom: "GP01",
     },
     validate: signInValidate,
     onSubmit: signInFunc,
   });
   return (
-    <section className="flex justify-center items-start w-full transition-all z-10">
-      <div className="max-w-lg bg-white py-10 px-14 rounded-lg">
-        <div className="mb-6 flex flex-col justify-between gap-3 ">
-          <img className="mx-auto" src={logo} alt="" />
+    <section className="z-10 flex w-full items-start justify-center transition-all">
+      <div className="max-w-lg rounded-lg bg-white px-14 pb-10 pt-16">
+        <div className="mb-6 flex flex-col justify-between gap-3">
           <h4 className="text-center text-2xl font-semibold">
             Sign in with your account
           </h4>
@@ -39,13 +55,13 @@ const SignInForm = () => {
         <div>
           <form onSubmit={signIn.handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="signInEmail">User Name</label>
+              <label htmlFor="signInEmail">Email</label>
               <input
                 className="input-field"
-                type="text"
-                name="signInUserName"
+                type="email"
+                name="signInEmail"
                 onChange={signIn.handleChange}
-                value={signIn.values.signInUserName}
+                value={signIn.values.signInEmail}
                 required
               />
             </div>
@@ -61,7 +77,7 @@ const SignInForm = () => {
               />
             </div>
             <button
-              className="w-full py-3 px-6 mb-5 rounded-lg uppercase text-white font-semibold bg-slate-700 hover:bg-slate-500 transition-all duration-500"
+              className="mb-5 w-full rounded-lg bg-brand px-6 py-3 font-semibold uppercase text-white transition-all duration-500"
               type="submit"
             >
               Sign In
@@ -71,7 +87,7 @@ const SignInForm = () => {
             Don't have an account yet?{" "}
             <NavLink
               to="/register"
-              className="text-blue-700 hover:cursor-pointer hover:text-blue-500 transition-all duration-500"
+              className="text-blue-700 transition-all duration-500 hover:cursor-pointer hover:text-blue-500"
             >
               Register
             </NavLink>

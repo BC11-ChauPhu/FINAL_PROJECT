@@ -1,13 +1,11 @@
 import React from "react";
-import logo from "../vite.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { http } from "../service/config";
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const registerValidate = (values) => {
     const errors = {};
-    if (values.registerUserName.length < 8) {
-      errors.registerUserName = "Username must have at least 5 characters *";
-    }
     if (!/^[A-Z]/.test(values.registerPassword)) {
       errors.registerPassword = "Password must have an uppercase letter *";
     } else if (values.registerPassword.length < 8) {
@@ -15,25 +13,47 @@ const RegisterForm = () => {
     }
     return errors;
   };
-  const registerFunc = () => {};
+  const registerFunc = () => {
+    const pushData = async () => {
+      try {
+        const res = await http.post("/api/auth/signup", {
+          id: register.values.registerId,
+          name: register.values.registerUserName,
+          email: register.values.registerEmail,
+          password: register.values.registerPassword,
+          phone: register.values.registerPhone,
+          birthday: register.values.registerBirthday,
+          gender: register.values.registerGender,
+          role: register.values.registerRole,
+        });
+
+        navigate("/sign-in");
+      } catch (err) {
+        console.log(err.response.data);
+        alert(err.response.data);
+      }
+    };
+    pushData();
+  };
   const register = useFormik({
     initialValues: {
+      registerId: "",
       registerUserName: "",
-      registerPassword: "",
-      registerFullName: "",
-      registerPhone: "",
-      maNhom: "GP01",
       registerEmail: "",
+      registerPassword: "",
+      registerPhone: "",
+      registerBirthday: "",
+      registerGender: true,
+      registerRole: "",
     },
     validate: registerValidate,
     onSubmit: registerFunc,
   });
 
   return (
-    <section className="flex justify-center items-start w-full transition-all z-10">
-      <div className="max-w-lg bg-white py-10 px-14 rounded-lg">
-        <div className="mb-6 flex flex-col justify-between gap-3 ">
-          <img className="mx-auto" src={logo} alt="" />
+    <section className="z-10 flex w-full items-start justify-center transition-all">
+      <div className="max-w-lg rounded-lg bg-white px-14 py-16">
+        <div className="mb-6 flex flex-col justify-between gap-3">
           <h4 className="text-center text-2xl font-semibold">Register</h4>
           <p className="text-center">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime,
@@ -61,6 +81,19 @@ const RegisterForm = () => {
               ) : null}
             </div>
 
+            <div className="mb-3">
+              <label htmlFor="registerEmail">Email</label>
+              <input
+                id="registerEmail"
+                className="input-field"
+                type="email"
+                name="registerEmail"
+                onChange={register.handleChange}
+                value={register.values.registerEmail}
+                required
+              />
+            </div>
+
             <div className="mb-5">
               <label htmlFor="registerPassword">Password</label>
               <input
@@ -78,18 +111,7 @@ const RegisterForm = () => {
                 </div>
               ) : null}
             </div>
-            <div className="mb-3">
-              <label htmlFor="registerFullName">Full Name</label>
-              <input
-                id="registerFullName"
-                className="input-field"
-                type="email"
-                name="registerUserName"
-                onChange={register.handleChange}
-                value={register.values.registerFullName}
-                required
-              />
-            </div>
+
             <div className="mb-3">
               <label htmlFor="registerPhone">Phone Number</label>
               <input
@@ -102,20 +124,9 @@ const RegisterForm = () => {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="registerEmail">Email</label>
-              <input
-                id="registerEmail"
-                className="input-field"
-                type="email"
-                name="registerEmail"
-                onChange={register.handleChange}
-                value={register.values.registerEmail}
-                required
-              />
-            </div>
+
             <button
-              className="w-full py-3 px-6 mb-5 rounded-lg uppercase text-white font-semibold bg-slate-700 hover:bg-slate-500 transition-all duration-500"
+              className="mb-5 w-full rounded-lg bg-brand px-6 py-3 font-semibold uppercase text-white transition-all duration-500"
               type="submit"
             >
               Register
@@ -125,7 +136,7 @@ const RegisterForm = () => {
             Already have an account?{" "}
             <NavLink
               to="/sign-in"
-              className="text-blue-700 hover:cursor-pointer hover:text-blue-500 transition-all duration-500"
+              className="text-blue-700 transition-all duration-500 hover:cursor-pointer hover:text-blue-500"
             >
               Sign In
             </NavLink>

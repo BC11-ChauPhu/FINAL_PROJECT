@@ -2,14 +2,17 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { http } from "../service/config";
+import { toast } from "react-toastify";
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const generateRandomId = () => Math.floor(Math.random() * 10000);
+
   const registerValidate = (values) => {
     const errors = {};
     if (!/^[A-Z]/.test(values.registerPassword)) {
-      errors.registerPassword = "Password must have an uppercase letter *";
+      errors.registerPassword = "* Password must have an uppercase letter *";
     } else if (values.registerPassword.length < 8) {
-      errors.registerPassword = "Password must have at lteast 8 characcters";
+      errors.registerPassword = "* Password must have at lteast 8 characcters";
     }
     return errors;
   };
@@ -28,16 +31,22 @@ const RegisterForm = () => {
         });
 
         navigate("/sign-in");
+        window.location.relaod();
       } catch (err) {
-        console.log(err.response.data);
-        alert(err.response.data);
+        console.log(err);
+        const errorMessage =
+          err?.response?.data?.content || "An error has occured ";
+        toast.error(errorMessage, {
+          autoClose: 2000,
+          position: "top-center",
+        });
       }
     };
     pushData();
   };
   const register = useFormik({
     initialValues: {
-      registerId: "",
+      registerId: generateRandomId(),
       registerUserName: "",
       registerEmail: "",
       registerPassword: "",

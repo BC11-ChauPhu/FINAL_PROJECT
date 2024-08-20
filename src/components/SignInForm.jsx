@@ -3,9 +3,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { http } from "../service/config";
-import { authEvents } from "../service/authEvents";
+import useScrollToTop from "../service/useScrollToTop.jsx";
 
 const SignInForm = () => {
+  useScrollToTop();
+
   const navigate = useNavigate();
   const signInValidate = (values) => {
     const errors = {};
@@ -28,10 +30,9 @@ const SignInForm = () => {
         localStorage.setItem("authToken", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        authEvents.emit("authChange");
-        navigate("/");
+        navigate("/", { replace: true });
+        window.location.reload();
       } catch (err) {
-        console.log(err);
         const errorMessage =
           err?.response?.data?.content || "An error occurred";
         toast.error(errorMessage, {

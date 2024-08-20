@@ -4,12 +4,10 @@ import { FaUserCircle } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../service/AuthContext.jsx";
-import { authEvents } from "../service/authEvents.jsx";
 
 const Header = () => {
   const navigate = useNavigate();
   const { isAuthenciated, logout } = useAuth();
-  const [authChanged, setAuthChanged] = useState(false);
 
   const scrollHeader = () => {
     if (document.documentElement.scrollTop > 10) {
@@ -20,11 +18,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    const handleAuthChange = () => {
-      setAuthChanged((prev) => !prev);
-    };
-
-    authEvents.on("authChange", handleAuthChange);
     window.addEventListener("scroll", scrollHeader);
   });
   return (
@@ -63,13 +56,43 @@ const Header = () => {
                 Online Experiences
               </NavLink>
             </div>
-            <NavLink
-              className="text-dark hidden items-center justify-between space-x-3 rounded-full border border-gray-300 bg-white px-2 py-2 font-semibold drop-shadow-lg transition-all duration-500 hover:text-gray-500 hover:drop-shadow-2xl md:flex"
-              to="/sign-in"
-            >
-              <RxHamburgerMenu />
-              <FaUserCircle className="text-3xl" />
-            </NavLink>
+            <div className="relative">
+              <button
+                className="text-dark hidden items-center justify-between space-x-3 rounded-full border border-gray-300 bg-white px-2 py-2 font-semibold drop-shadow-lg transition-all duration-500 hover:text-gray-500 hover:drop-shadow-2xl md:flex"
+                onClick={() => {
+                  const mdPopUp = document.getElementById("mdPopUp");
+                  if (mdPopUp) mdPopUp.classList.toggle("hidden");
+                }}
+              >
+                <RxHamburgerMenu />
+                <FaUserCircle className="text-3xl" />
+              </button>
+              <div
+                id="mdPopUp"
+                className="absolute right-0 mt-2 hidden rounded-lg bg-white py-2 shadow-xl"
+              >
+                {isAuthenciated ? (
+                  <>
+                    <div className="px-8 py-2 transition-all hover:bg-gray-200">
+                      <NavLink className="">Profile</NavLink>
+                    </div>
+                    <div className="px-8 py-2 transition-all hover:bg-gray-200">
+                      <button onClick={logout}>Logout</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="px-8 py-2 transition-all hover:bg-gray-200">
+                      <NavLink to="/register">Register</NavLink>
+                    </div>
+                    <div className="px-8 py-2 transition-all hover:bg-gray-200">
+                      <NavLink to="/sign-in">Sign In</NavLink>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+            {/* SMALL SCREEN MENU */}
             <div className="flex items-center md:hidden">
               <button
                 id="menu-btn"
@@ -86,10 +109,8 @@ const Header = () => {
               </button>
             </div>
           </div>
-          <div>
-            <NavLink></NavLink>
-          </div>
         </div>
+        {/* SMALL SCREEN POPUP */}
         <div className="md:hidden">
           <div
             id="menu"

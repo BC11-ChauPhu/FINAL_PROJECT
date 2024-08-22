@@ -3,8 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { http } from "../service/config";
 import { IoIosStar } from "react-icons/io";
 import { FaHeart } from "react-icons/fa6";
+import useScrollToTop from "../service/useScrollToTop";
 
 const SelectedLocation = () => {
+  useScrollToTop();
   const { id } = useParams();
   const [location, setLocation] = useState([]);
   const navigate = useNavigate();
@@ -16,9 +18,9 @@ const SelectedLocation = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
+  // useEffect(() => {
+  //   console.log(location);
+  // }, [location]);
 
   return (
     <section>

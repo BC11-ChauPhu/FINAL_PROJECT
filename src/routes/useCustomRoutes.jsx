@@ -7,6 +7,8 @@ import RegisterPage from "../pages/RegisterPage";
 import SelectedLocationPage from "../pages/SelectedLocationPage";
 import LocationTemplate from "../templates/LocationTemplate";
 import LocationDetailPage from "../pages/LocationDetailPage";
+import UserTemplate from "../templates/UserTemplate";
+import UserPage from "../pages/UserPage";
 
 const useCustomRoutes = () => {
   const myRoutes = useRoutes([
@@ -36,6 +38,16 @@ const useCustomRoutes = () => {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "/profile",
+      element: <UserTemplate />,
+      children: [
+        {
+          path: `user/:id`,
+          element: <UserPage />,
+        },
+      ],
     },
   ]);
   return myRoutes;

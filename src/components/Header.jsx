@@ -4,8 +4,10 @@ import { FaUserCircle } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../service/AuthContext.jsx";
+import useScrollToTop from "../service/useScrollToTop.jsx";
 
 const Header = () => {
+  useScrollToTop();
   const navigate = useNavigate();
   const { isAuthenciated, logout } = useAuth();
 
@@ -14,6 +16,15 @@ const Header = () => {
       document.getElementById("header").classList.add("active");
     } else {
       document.getElementById("header").classList.remove("active");
+    }
+  };
+
+  const goToUser = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) {
+      navigate(`/profile/user/${userData.id}`);
+    } else {
+      console.log(`Id not found`);
     }
   };
 
@@ -74,7 +85,7 @@ const Header = () => {
                 {isAuthenciated ? (
                   <>
                     <div className="px-8 py-2 transition-all hover:bg-gray-200">
-                      <NavLink className="">Profile</NavLink>
+                      <button onClick={goToUser}>Profile</button>
                     </div>
                     <div className="px-8 py-2 transition-all hover:bg-gray-200">
                       <button onClick={logout}>Logout</button>
@@ -119,7 +130,7 @@ const Header = () => {
             <div className="items-centers flex w-full flex-col space-y-6 border-b border-gray-300 pb-6 text-center">
               {isAuthenciated ? (
                 <>
-                  <NavLink>Profile</NavLink>
+                  <button onClick={goToUser}>Profile</button>
                   <button onClick={logout}>Logout</button>
                 </>
               ) : (

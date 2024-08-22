@@ -19,9 +19,9 @@ const LocationComments = ({ localeId }) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(comment);
-  }, [comment]);
+  // useEffect(() => {
+  //   console.log(comment);
+  // }, [comment]);
 
   return (
     <>

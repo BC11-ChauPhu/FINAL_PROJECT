@@ -6,8 +6,10 @@ import { IoClose } from "react-icons/io5";
 import SearchResultList from "./SearchResultList";
 import SearchResultMedium from "./SearchResultMedium";
 import { useNavigate } from "react-router-dom";
+import useScrollToTop from "../service/useScrollToTop";
 
 const Banner = () => {
+  useScrollToTop();
   const [input, setInput] = useState("");
   const [filteredList, setfilteredList] = useState([]);
   const [showResults, setShowResults] = useState(false);
@@ -177,7 +179,7 @@ const Banner = () => {
       {/* POPUP SEARCH FOR SMALL SCREEN */}
       <div
         id="popup-location"
-        className="small-popup fixed top-0 z-[2] hidden h-screen w-screen flex-col bg-white transition-all duration-500"
+        className="small-popup fixed top-0 z-[2] hidden h-screen w-screen flex-col overflow-y-auto bg-white transition-all duration-500"
       >
         {/* CLOSE BUTTON */}
         <div className="z-[2] px-5 py-3">
@@ -237,7 +239,7 @@ const Banner = () => {
           </div>
         </div>
         {/* SEARCH BUTTON */}
-        <div className="r-0 fixed bottom-0 px-6 py-2">
+        <div className="px-6 py-2">
           <div>
             <button
               className="inline-block rounded-lg bg-brand px-[24px] py-[14px] text-white"

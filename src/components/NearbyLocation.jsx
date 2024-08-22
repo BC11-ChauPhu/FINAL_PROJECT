@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { http } from "../service/config";
 import { IoIosStar } from "react-icons/io";
 import { FaHeart } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import useScrollToTop from "../service/useScrollToTop";
 
 const NearbyLocation = () => {
+  useScrollToTop();
+  const navigate = useNavigate();
   const [locations, setLocation] = useState([]);
   useEffect(() => {
     http
@@ -29,7 +33,12 @@ const NearbyLocation = () => {
             return (
               <div key={index} className="flex flex-col">
                 <div className="relative md:h-96 lg:h-full">
-                  <div className="h-full">
+                  <div
+                    className="h-full"
+                    onClick={() => {
+                      navigate(`/location/selectedLocation/${item.id}`);
+                    }}
+                  >
                     <img
                       className="rounded-lg md:h-full md:w-full"
                       src={item.hinhAnh}

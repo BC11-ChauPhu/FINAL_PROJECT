@@ -12,10 +12,27 @@ import {
 import { GiWashingMachine } from "react-icons/gi";
 import { PiTelevision } from "react-icons/pi";
 import LocationComments from "./LocationComments.jsx";
+import DateSelector from "./DateSelector.jsx";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const LocationDetail = () => {
   const { id } = useParams();
   const [room, setRoom] = useState([]);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+
+  const handleReserve = () => {
+    const reservation = async () => {
+      try {
+        const res = await http.get("/api/dat-phong");
+        console.log(res.data.content);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    reservation();
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,6 +51,10 @@ const LocationDetail = () => {
     // window.scrollTo(0, 0);
     // console.log(id);
   }, [id]);
+
+  useEffect(() => {
+    console.log(startDate);
+  }, [startDate]);
 
   return (
     <section className="mb-10">
@@ -153,23 +174,34 @@ const LocationDetail = () => {
             </div>
             {/* CHECK IN/OUT  */}
             <div>
-              <div className="flex text-left text-[0.625rem]">
+              <div
+                className="flex text-left text-[0.625rem]"
+                // onClick={handleShowCalendar}
+              >
                 <div className="w-1/2">
-                  <button className="w-full">
+                  <div className="w-full">
                     <div className="flex flex-col rounded-tl-xl border border-gray-400 px-2 py-2 text-left">
                       <span className="font-bold">CHECK-IN</span>
                       <span className="overflow-ellipsis whitespace-nowrap text-base">
-                        08-22-24
+                        <DatePicker
+                          className="w-full"
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                        />
                       </span>
                     </div>
-                  </button>
+                  </div>
                 </div>
                 <div className="w-1/2">
                   <button className="w-full">
                     <div className="flex flex-col rounded-tr-xl border border-gray-400 border-l-transparent px-2 py-2 text-left">
                       <span className="font-bold">CHECK-OUT</span>
                       <span className="overflow-ellipsis whitespace-nowrap text-base">
-                        08-27-24
+                        <DatePicker
+                          className="w-full"
+                          selected={endDate}
+                          onChange={(date) => setEndDate(date)}
+                        />
                       </span>
                     </div>
                   </button>
@@ -183,9 +215,9 @@ const LocationDetail = () => {
               </div>
             </div>
             <div className="mt-6 flex justify-center">
-              <div>
-                <button className="rounded-xl bg-brand px-6 py-3 font-semibold text-white">
-                  Check availability
+              <div className="w-full">
+                <button className="w-full rounded-xl bg-brand px-6 py-3 font-semibold text-white">
+                  Reserve
                 </button>
               </div>
             </div>
@@ -194,19 +226,19 @@ const LocationDetail = () => {
       </div>
       {/* COMMENT */}
       <div>{room && <LocationComments localeId={id} />}</div>
-      {/* STICKY RESERVE */}
+      {/* STICKY RESERVE BOTTOM */}
       <div className="fixed bottom-0 min-h-20 w-full border-t border-t-gray-300 bg-white md:hidden">
         <div className="h-full w-full items-center px-4">
           <div>
             <div className="py-4">
               <div className="flex justify-between">
                 <div className="flex font-semibold">
-                  <button className="">
+                  <button>
                     <div>
                       <span>${room.giaTien}/night</span>
                     </div>
                     <div>
-                      <span className="text-sm underline">Sep.9 ~ 14</span>
+                      <span classname="text-sm underline">sep.9 ~ 14</span>
                     </div>
                   </button>
                 </div>

@@ -40,8 +40,8 @@ const LocationComments = ({ localeId }) => {
               <div>
                 <div className="flex items-center text-xs md:text-sm">
                   <div className="flex">
-                    {Array.from({ length: item.saoBinhLuan }, (_) => (
-                      <span>
+                    {Array.from({ length: item.saoBinhLuan }, (_, index) => (
+                      <span key={index}>
                         <IoIosStar className="h-[9px] w-[9px]" />
                       </span>
                     ))}
@@ -59,15 +59,15 @@ const LocationComments = ({ localeId }) => {
               </div>
               {/* AVATAR */}
               <div>
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
                   <div
-                    className="h-12 w-12 rounded-full border border-gray-500 bg-cover bg-center bg-no-repeat"
+                    className="h-12 min-w-12 rounded-full border border-gray-500 bg-cover bg-center bg-no-repeat"
                     style={{
                       backgroundImage: `url(${item.avatar ? item.avatar : defaultUser})`,
                     }}
                   ></div>
                   <div>
-                    <p className="font-semibold capitalize">
+                    <p className="text-sm font-semibold capitalize">
                       {item.tenNguoiBinhLuan}
                     </p>
                     <p className="text-sm">4 months on Airbnb</p>

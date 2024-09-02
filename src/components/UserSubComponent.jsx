@@ -1,13 +1,13 @@
 import React from "react";
 import defaultUser from "../assets/img/user.jpg";
+import { LuBadgeCheck } from "react-icons/lu";
 
 const UserSubComponent = ({ userData }) => {
-  console.log(userData);
   return (
-    <div className="flex flex-col items-center rounded-xl border border-gray-300 py-6 shadow-lg">
+    <div className="flex flex-col gap-2 rounded-xl border border-gray-300 px-4 py-6 shadow-lg md:w-1/3">
       {/* AVAVTAR */}
-      <div className="flex flex-col items-center">
-        <div className="h-36 w-36 rounded-full border border-gray-300">
+      <div className="flex flex-col items-center gap-2">
+        <div className="h-36 w-36 gap-4 rounded-full border border-gray-300">
           <img
             className="h-full w-full rounded-full"
             src={userData.avatar ? userData.avatar : defaultUser}
@@ -17,8 +17,24 @@ const UserSubComponent = ({ userData }) => {
         <div className="text-center underline">Update avatar</div>
       </div>
       {/* INFO */}
-      <div className="flex flex-col items-center">
-        <h1 className="text-4xl font-semibold">{userData.name}</h1>
+      <div className="flex flex-col items-center gap-4">
+        <div className="text-center">
+          <h1 className="text-3xl font-semibold">{userData.name}</h1>
+          <div>
+            <p> {userData.email}</p>
+          </div>
+        </div>
+        <div className="flex flex-col items-center gap-2 text-center">
+          <div>
+            <LuBadgeCheck className="h-10 w-10" />
+          </div>
+          <div className="text-lg font-semibold md:text-left">
+            Confirm your identity
+          </div>
+          <div className="md:text-center">
+            Confirm your identity for better security for your account
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -8,10 +8,10 @@ const User = () => {
   const userData = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-6">
+    <section className="mt-[62px] py-20">
+      <div className="container mx-auto flex flex-col gap-6 px-6 md:flex-row">
         <UserSubComponent userData={userData} />
-        <UserMainComponent />
+        <UserMainComponent userData={userData} />
       </div>
     </section>
   );

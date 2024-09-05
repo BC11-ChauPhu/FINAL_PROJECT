@@ -12,15 +12,18 @@ import {
 import { GiWashingMachine } from "react-icons/gi";
 import { PiTelevision } from "react-icons/pi";
 import LocationComments from "./LocationComments.jsx";
-import DateSelector from "./DateSelector.jsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DateSelector from "./DateSelector.jsx";
+import { CiCirclePlus } from "react-icons/ci";
+import { CiCircleMinus } from "react-icons/ci";
 
 const LocationDetail = () => {
   const { id } = useParams();
   const [room, setRoom] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [guests, setGuests] = useState(0);
 
   const handleReserve = () => {
     const reservation = async () => {
@@ -32,6 +35,16 @@ const LocationDetail = () => {
       }
     };
     reservation();
+  };
+
+  const decreaseGuests = () => {
+    if (guests > 0) {
+      setGuests(guests - 1);
+    }
+  };
+
+  const increaseGuests = () => {
+    setGuests(guests + 1);
   };
 
   useEffect(() => {
@@ -231,19 +244,41 @@ const LocationDetail = () => {
         <div className="h-full w-full items-center px-4">
           <div>
             <div className="py-4">
-              <div className="flex justify-between">
-                <div className="flex font-semibold">
-                  <button>
-                    <div>
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex w-2/3 font-semibold">
+                  <div className="w-full">
+                    <div className="flex justify-between">
                       <span>${room.giaTien}/night</span>
                     </div>
                     <div>
-                      <span classname="text-sm underline">sep.9 ~ 14</span>
+                      <span className="w-full text-sm underline">
+                        <DateSelector />
+                      </span>
                     </div>
-                  </button>
+                    <div>
+                      <div className="flex items-center gap-1">
+                        <CiCircleMinus
+                          onClick={() => {
+                            decreaseGuests();
+                          }}
+                        />{" "}
+                        {guests} Guests{" "}
+                        <CiCirclePlus
+                          onClick={() => {
+                            increaseGuests();
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="min-w-36">
-                  <div className="min-w-50 rounded-lg bg-brand px-6 py-[14px] text-center font-semibold text-white">
+                <div className="w-1/3">
+                  <div
+                    className="rounded-lg bg-brand px-4 py-[14px] text-center font-semibold text-white"
+                    onClick={() => {
+                      handleReserve();
+                    }}
+                  >
                     <span>Reserve</span>
                   </div>
                 </div>

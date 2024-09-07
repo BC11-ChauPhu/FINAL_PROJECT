@@ -9,7 +9,6 @@ const DateSelector = () => {
   return (
     <DatePicker
       className="w-full overflow-x-scroll text-sm underline"
-      selectsRange={true}
       startDate={startDate}
       endDate={endDate}
       onChange={(update) => {

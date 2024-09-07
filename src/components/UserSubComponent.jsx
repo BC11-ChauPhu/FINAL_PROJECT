@@ -4,7 +4,7 @@ import { LuBadgeCheck } from "react-icons/lu";
 
 const UserSubComponent = ({ userData }) => {
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-gray-300 px-4 py-6 shadow-lg md:w-1/3">
+    <div className="flex flex-col gap-2 rounded-xl border border-gray-300 px-4 py-6 shadow-lg md:w-1/3 lg:w-[30%]">
       {/* AVAVTAR */}
       <div className="flex flex-col items-center gap-2">
         <div className="h-36 w-36 gap-4 rounded-full border border-gray-300">
@@ -14,7 +14,7 @@ const UserSubComponent = ({ userData }) => {
             alt="User Avatar"
           />
         </div>
-        <div className="text-center underline">Update avatar</div>
+        <div className="text-center underline">Update your profile</div>
       </div>
       {/* INFO */}
       <div className="flex flex-col items-center gap-4">
@@ -28,9 +28,7 @@ const UserSubComponent = ({ userData }) => {
           <div>
             <LuBadgeCheck className="h-10 w-10" />
           </div>
-          <div className="text-lg font-semibold md:text-left">
-            Confirm your identity
-          </div>
+          <div className="text-lg font-semibold">Confirm your identity</div>
           <div className="md:text-center">
             Confirm your identity for better security for your account
           </div>

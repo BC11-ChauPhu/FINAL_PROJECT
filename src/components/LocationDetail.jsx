@@ -24,11 +24,20 @@ const LocationDetail = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [guests, setGuests] = useState(0);
+  const generateRandomId = () => Math.floor(Math.random() * 10000);
+  const userData = JSON.parse(localStorage.getItem("user"));
 
   const handleReserve = () => {
     const reservation = async () => {
       try {
-        const res = await http.get("/api/dat-phong");
+        const res = await http.post("/api/dat-phong", {
+          id: generateRandomId,
+          maPhong: room.id,
+          ngayDen: startDate,
+          ngayDi: endDate,
+          soLuongKhach: guests,
+          maNguoiDung: userData.id,
+        });
         console.log(res.data.content);
       } catch (err) {
         console.log(err);
@@ -251,8 +260,24 @@ const LocationDetail = () => {
                       <span>${room.giaTien}/night</span>
                     </div>
                     <div>
-                      <span className="w-full text-sm underline">
-                        <DateSelector />
+                      <span className="flex justify-start">
+                        <span className="max-w-[86px]">
+                          <DatePicker
+                            className="w-full text-sm underline"
+                            selected={startDate}
+                            onChange={(date) => setStartDate(date)}
+                            withPortal
+                          />
+                        </span>
+                        <span className="px-1">-</span>
+                        <span className="max-w-[86px]">
+                          <DatePicker
+                            className="w-full text-sm underline"
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)}
+                            withPortal
+                          />
+                        </span>
                       </span>
                     </div>
                     <div>

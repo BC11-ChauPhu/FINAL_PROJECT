@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { http } from "../service/config";
+import { useNavigate } from "react-router-dom";
 
 const UserMainComponent = ({ userData }) => {
   const [room, setRoom] = useState([]);
   const [roomInfo, setRoomInfo] = useState([]);
+  const navgiate = useNavigate();
 
   useEffect(() => {
     const getRoom = async () => {
@@ -42,7 +44,7 @@ const UserMainComponent = ({ userData }) => {
   // }, [roomInfo]);
 
   return (
-    <div className="lg:w-[70%]">
+    <div className="md:w-[60%] lg:w-[70%]">
       <div className="text-center md:text-left">
         {/* TITLE */}
         <div>
@@ -51,12 +53,17 @@ const UserMainComponent = ({ userData }) => {
           </h1>
         </div>
         {/* CONTENT */}
-        <div className="grid text-sm lg:text-base">
+        <div className="grid gap-4 text-sm lg:text-base">
           {roomInfo.map((item, index) => (
             <div key={index}>
               <div className="relative flex flex-col gap-3 lg:flex-row">
                 {/* IMG */}
-                <div className="relative max-h-56 lg:max-h-full lg:w-1/2">
+                <div
+                  className="relative max-h-56 lg:max-h-full lg:w-1/2"
+                  onClick={() => {
+                    navgiate(`/location/detail/${item.id}`);
+                  }}
+                >
                   <div className="h-full">
                     <img
                       src={item.hinhAnh}

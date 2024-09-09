@@ -4,7 +4,7 @@ import { LuBadgeCheck } from "react-icons/lu";
 
 const UserSubComponent = ({ userData }) => {
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-gray-300 px-4 py-6 shadow-lg md:w-1/3 lg:w-[30%]">
+    <div className="top-50 sticky flex max-h-[442px] flex-col gap-2 rounded-xl border border-gray-300 px-4 py-6 shadow-lg md:w-[40%] lg:w-[30%]">
       {/* AVAVTAR */}
       <div className="flex flex-col items-center gap-2">
         <div className="h-36 w-36 gap-4 rounded-full border border-gray-300">

@@ -17,6 +17,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import DateSelector from "./DateSelector.jsx";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
+import { useAuth } from "../service/AuthContext.jsx";
+import UserComment from "./UserComment.jsx";
+import { toast } from "react-toastify";
 
 const LocationDetail = () => {
   const { id } = useParams();
@@ -26,6 +29,7 @@ const LocationDetail = () => {
   const [guests, setGuests] = useState(0);
   const generateRandomId = () => Math.floor(Math.random() * 10000);
   const userData = JSON.parse(localStorage.getItem("user"));
+  const isAuthenciated = useAuth();
 
   const handleReserve = () => {
     const reservation = async () => {
@@ -38,12 +42,22 @@ const LocationDetail = () => {
           soLuongKhach: guests,
           maNguoiDung: userData.id,
         });
-        console.log(res.data.content);
+        toast.success("Reservation successful", {
+          autoClose: 2000,
+          position: "top-center",
+        });
       } catch (err) {
         console.log(err);
       }
     };
-    reservation();
+    if (guests > 0) {
+      reservation();
+    } else {
+      toast.error("There must at least 1 guest", {
+        autoClose: 2000,
+        position: "top-center",
+      });
+    }
   };
 
   const decreaseGuests = () => {
@@ -68,20 +82,10 @@ const LocationDetail = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    // console.log(room);
-    // window.scrollTo(0, 0);
-    // console.log(id);
-  }, [id]);
-
-  useEffect(() => {
-    console.log(startDate);
-  }, [startDate]);
-
   return (
     <section className="mb-10">
       {/* IMAGE */}
-      <div className="flex flex-col md:flex-col-reverse md:pb-8 md:pt-14 lg:mx-auto lg:w-[1280px]">
+      <div className="flex flex-col md:flex-col-reverse md:pb-8 md:pt-14 lg:mx-auto lg:w-[1024] xl:w-[1280px]">
         <div className="h-52 md:h-80 md:px-6 lg:h-[489px]">
           <img src={room.hinhAnh} alt="" className="h-full w-full" />
         </div>
@@ -90,7 +94,7 @@ const LocationDetail = () => {
         </div>
       </div>
       {/* CONTENT */}
-      <div className="flex flex-col space-y-4 px-6 text-sm md:flex-row md:space-y-0 md:text-base lg:mx-auto lg:w-[1280px]">
+      <div className="relative flex flex-col space-y-4 overflow-y-auto px-6 text-sm md:flex-row md:space-y-0 md:text-base lg:mx-auto lg:w-[1024] xl:w-[1280px]">
         {/* LEFT CONTENT */}
         <div className="flex flex-col space-y-4 md:w-[65%]">
           <div className="flex flex-col">
@@ -186,8 +190,8 @@ const LocationDetail = () => {
           </div>
         </div>
         {/* RIGHT CONTENT */}
-        <div className="relative hidden md:ml-[8.5%] md:block md:w-[35%]">
-          <div className="sticky top-20 flex flex-col rounded-xl border border-gray-300 p-6 shadow-lg">
+        <div className="relative hidden overflow-y-auto md:ml-[8.5%] md:block md:w-[35%]">
+          <div className="sticky top-14 flex flex-col rounded-xl border border-gray-300 p-6 shadow-lg">
             <div className="mb-6">
               <p>
                 <span className="text-2xl font-semibold">${room.giaTien}</span>{" "}
@@ -229,16 +233,37 @@ const LocationDetail = () => {
                   </button>
                 </div>
               </div>
-              <div className="rounded-bl-xl rounded-br-xl border border-gray-400 border-t-transparent px-2 py-2 text-left text-[0.625rem]">
+              <div className="relative rounded-bl-xl rounded-br-xl border border-gray-400 border-t-transparent px-2 py-2 text-left text-[0.625rem]">
                 <div className="font-bold">GUESTS</div>
-                <div>
-                  <span className="text-base">1 guest</span>
+                <div className="flex items-center justify-between">
+                  <span className="text-base">{guests} guests</span>
+                  <div className="flex gap-2 text-2xl">
+                    <p
+                      onClick={() => {
+                        decreaseGuests();
+                      }}
+                    >
+                      <CiCircleMinus />
+                    </p>
+                    <p
+                      onClick={() => {
+                        increaseGuests();
+                      }}
+                    >
+                      <CiCirclePlus />
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="mt-6 flex justify-center">
               <div className="w-full">
-                <button className="w-full rounded-xl bg-brand px-6 py-3 font-semibold text-white">
+                <button
+                  className="w-full rounded-xl bg-brand px-6 py-3 font-semibold text-white"
+                  onClick={() => {
+                    handleReserve();
+                  }}
+                >
                   Reserve
                 </button>
               </div>
@@ -248,6 +273,10 @@ const LocationDetail = () => {
       </div>
       {/* COMMENT */}
       <div>{room && <LocationComments localeId={id} />}</div>
+      {/* USER COMMENT */}
+      <div>
+        {isAuthenciated && <UserComment userData={userData} roomData={room} />}
+      </div>
       {/* STICKY RESERVE BOTTOM */}
       <div className="fixed bottom-0 min-h-20 w-full border-t border-t-gray-300 bg-white md:hidden">
         <div className="h-full w-full items-center px-4">

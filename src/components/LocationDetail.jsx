@@ -29,7 +29,8 @@ const LocationDetail = () => {
   const [guests, setGuests] = useState(0);
   const generateRandomId = () => Math.floor(Math.random() * 10000);
   const userData = JSON.parse(localStorage.getItem("user"));
-  const isAuthenciated = useAuth();
+  const { isAuthenciated } = useAuth();
+  console.log(isAuthenciated);
 
   const handleReserve = () => {
     const reservation = async () => {

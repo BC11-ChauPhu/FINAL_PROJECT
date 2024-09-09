@@ -73,8 +73,8 @@ const UserMainComponent = ({ userData }) => {
                   </div>
                 </div>
                 {/* TEXT */}
-                <div className="flex flex-col text-left lg:w-1/2">
-                  <p className="overflow-ellipsis whitespace-nowrap font-semibold lg:overflow-clip lg:whitespace-normal lg:pb-4">
+                <div className="flex max-w-[272px] flex-col text-left md:max-w-full lg:w-1/2">
+                  <p className="overflow-hidden overflow-ellipsis whitespace-nowrap font-semibold lg:overflow-clip lg:whitespace-normal lg:pb-4">
                     {item.tenPhong}
                   </p>
                   <div className="text-gray-500">

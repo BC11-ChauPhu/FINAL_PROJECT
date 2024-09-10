@@ -44,7 +44,7 @@ const UserMainComponent = ({ userData }) => {
   // }, [roomInfo]);
 
   return (
-    <div className="md:w-[60%] lg:w-[70%]">
+    <div className="relative z-[-1] md:w-[60%] lg:w-[70%]">
       <div className="text-center md:text-left">
         {/* TITLE */}
         <div>

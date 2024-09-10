@@ -9,7 +9,7 @@ const User = () => {
 
   return (
     <section className="mt-[62px] py-10">
-      <div className="container relative mx-auto flex flex-col px-6 md:flex-row md:gap-6">
+      <div className="container relative z-0 mx-auto flex flex-col px-6 md:flex-row md:gap-6">
         <UserSubComponent userData={userData} />
         <UserMainComponent userData={userData} />
       </div>

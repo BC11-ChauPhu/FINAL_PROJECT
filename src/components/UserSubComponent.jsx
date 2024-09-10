@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import defaultUser from "../assets/img/user.jpg";
 import { LuBadgeCheck } from "react-icons/lu";
+import EditProfile from "./EditProfile";
 
 const UserSubComponent = ({ userData }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const handleUpdateProfileClick = () => {
+    setIsEditing((prev) => !prev);
+  };
+
   return (
     <div className="top-50 sticky flex max-h-[442px] flex-col gap-2 rounded-xl border border-gray-300 px-4 py-6 shadow-lg md:w-[40%] lg:w-[30%]">
       {/* AVAVTAR */}
@@ -14,7 +20,12 @@ const UserSubComponent = ({ userData }) => {
             alt="User Avatar"
           />
         </div>
-        <div className="text-center underline">Update your profile</div>
+        <div
+          className="cursor-pointer text-center underline"
+          onClick={() => handleUpdateProfileClick()}
+        >
+          Update your profile
+        </div>
       </div>
       {/* INFO */}
       <div className="flex flex-col items-center gap-4">
@@ -34,6 +45,14 @@ const UserSubComponent = ({ userData }) => {
           </div>
         </div>
       </div>
+      {/* EDIT PROFILE */}
+      {isEditing && (
+        <EditProfile
+          editing={isEditing}
+          onClick={handleUpdateProfileClick}
+          userData={userData}
+        />
+      )}
     </div>
   );
 };
